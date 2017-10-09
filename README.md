@@ -1,2 +1,2 @@
-# Youtubealytics
-A web application for YouTubers who want to see analytics of various Youtube channels.
+# Sentimentalytics
+A web application for statisticians who want to see a sentiment analysis on certain words or phrases.
