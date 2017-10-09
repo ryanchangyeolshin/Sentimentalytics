@@ -1,0 +1,31 @@
+{
+  "name": "sentimentalytics",
+  "version": "1.0.0",
+  "description": "A web application for statisticians who want to see a sentiment analysis on certain words or phrases.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanchangyeolshin/Sentimentalytics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanchangyeolshin/Sentimentalytics/issues"
+  },
+  "homepage": "https://github.com/ryanchangyeolshin/Sentimentalytics#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "mongodb": "^2.2.31",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "nodemon": "^1.12.1"
+  }
+}
