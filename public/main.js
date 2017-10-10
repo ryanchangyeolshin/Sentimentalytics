@@ -1,20 +1,29 @@
-const formData = new FormData(document.querySelector('.form'))
-
-$submit = document.querySelector('#submit')
-$submit.addEventListener('click', event => {
-  event.preventDefault()
-  const $searchTerm = document.querySelector('#search-term')
-  formData.set('searchTerm', $searchTerm.value)
-
-  const data = { searchTerm: formData.get('searchTerm') }
-  fetch('http://localhost:3000/terms', {
+function postSentiment(term) {
+  fetch('/terms/', {
     method: 'POST',
-    body: data
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(term)
   })
-  .then(res => {
-    return res.json()
-  })
-  .catch(err => {
-    console.error(err)
-  })
+    .then(function (res) {
+      console.log(res)
+    })
+    .catch(function (err) {
+      console.error(err)
+    })
+}
+
+const $submit = document.querySelector('#submit')
+$submit.addEventListener('click', function (event) {
+  event.preventDefault()
+
+  const $form = new FormData(document.querySelector('.form'))
+  const term = {}
+  for (let pair of $form.entries()) {
+    const [ key, value ] = pair
+    term[key] = value
+  }
+
+  postSentiment(term)
 })

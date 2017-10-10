@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
+    "seed": "node seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,10 +23,22 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
     "mongodb": "^2.2.31",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "unirest": "^0.5.1"
   },
   "devDependencies": {
     "eslint": "^4.8.0",
-    "nodemon": "^1.12.1"
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "htmlhint": "^0.9.13",
+    "husky": "^0.14.3",
+    "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.1",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0"
   }
 }

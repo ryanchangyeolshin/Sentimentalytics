@@ -4,7 +4,13 @@
 }
 
 body {
+  /* Typography */
+  font-family: 'Roboto', sans-serif;
+
   /* Visuals */
+  background-image: url('https://visualhunt.com/photos/m/7/mountain-fog-tree-mountain.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   color: white;
 }
 
@@ -12,6 +18,7 @@ body {
 .container {
   /* Visuals */
   background-color: #0b1b26;
+  opacity: 0.9;
 }
 
 h1 {
