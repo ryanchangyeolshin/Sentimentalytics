@@ -26,4 +26,5 @@ $submit.addEventListener('click', function (event) {
   }
 
   postSentiment(term)
+  document.querySelector('#search-term').value = ''
 })
