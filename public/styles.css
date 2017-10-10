@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  /* Visuals */
+  color: white;
+}
+
+.jumbotron,
+.container {
+  /* Visuals */
+  background-color: #0b1b26;
+}
+
+h1 {
+  /* Typography */
+  letter-spacing: 10px;
+}
