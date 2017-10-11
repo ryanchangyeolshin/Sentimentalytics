@@ -8,9 +8,11 @@ body {
   font-family: 'Roboto', sans-serif;
 
   /* Visuals */
-  background-image: url('https://visualhunt.com/photos/m/7/mountain-fog-tree-mountain.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+  background: url('https://visualhunt.com/photos/m/7/mountain-fog-tree-mountain.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: white;
 }
 
@@ -24,4 +26,22 @@ body {
 h1 {
   /* Typography */
   letter-spacing: 10px;
+}
+
+.sentiment {
+  /* Visuals */
+  background-color: #f1f2f1;
+  color: black;
+  opacity: 0.9;
+}
+
+h3 {
+  /* Typography */
+  text-decoration: underline;
+}
+
+img {
+  /* Positioning */
+  width: 80px;
+  height: 80px;
 }
