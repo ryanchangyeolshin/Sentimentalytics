@@ -17,7 +17,7 @@ function renderAnalysis(data, id) {
   const $sentimentContent = renderContent('sentiment', data, id)
   const $confidenceContent = renderContent('confidence', data, id)
 
-  $sentiment.setAttribute('class', 'sentiment rounded mr-lg-5 mb-lg-3 px-lg-4 py-lg-4')
+  $sentiment.setAttribute('class', 'sentiment rounded mr-lg-5 mb-lg-3 px-lg-4 py-lg-4 animated bounceInUp')
   $row.setAttribute('class', 'row')
   $colFour.setAttribute('class', 'col-4')
   $listTab.setAttribute('class', 'list-group')
