@@ -1,4 +1,5 @@
 /* global renderAnalysis */
+/* global renderNewPie */
 
 function getData() {
   return fetch('/api/terms/')
@@ -23,6 +24,12 @@ function postSentiment(term) {
     })
 }
 
+function clearSentiments($sentiments, $children) {
+  while ($sentiments.hasChildNodes()) {
+    $sentiments.removeChild($children[0])
+  }
+}
+
 const $submit = document.querySelector('#submit')
 $submit.addEventListener('click', function (event) {
   event.preventDefault()
@@ -43,20 +50,20 @@ $show.addEventListener('click', function (event) {
 
   const $sentiments = document.querySelector('.sentiments')
   if ($sentiments.hasChildNodes()) {
-    return null
+    const $children = $sentiments.children
+    clearSentiments($sentiments, $children)
   }
-  else {
-    let numberId = 0
-    getData()
-      .then(function (terms) {
-        terms.forEach(function (term) {
-          const $sentiment = renderAnalysis(term, numberId)
-          $sentiments.appendChild($sentiment)
-          numberId++
-        })
+  let numberId = 0
+  getData()
+    .then(function (terms) {
+      terms.forEach(function (term) {
+        const $sentiment = renderAnalysis(term, numberId)
+        $sentiments.appendChild($sentiment)
+        renderNewPie(term, numberId)
+        numberId++
       })
-      .catch(function (err) {
-        console.error(err)
-      })
-  }
+    })
+    .catch(function (err) {
+      console.error(err)
+    })
 })

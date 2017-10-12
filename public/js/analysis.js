@@ -96,7 +96,7 @@ function renderContent(query, data, id) {
 
       $h3.textContent = 'Search Term'
 
-      $h5.setAttribute('class', 'text-justify mt-3')
+      $h5.setAttribute('class', 'text-center mt-3')
       $h5.setAttribute('id', 'term')
       $h5.textContent = data['searchTerm']
 
@@ -146,7 +146,7 @@ function renderContent(query, data, id) {
       $h3.textContent = 'Confidence'
 
       const $pieChart = document.createElement('div')
-      $pieChart.setAttribute('id', 'pieChart')
+      $pieChart.setAttribute('id', `pieChart${id}`)
       $content.appendChild($h3)
       $content.appendChild($pieChart)
       break
