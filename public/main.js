@@ -24,10 +24,34 @@ function postSentiment(term) {
     })
 }
 
-function clearSentiments($sentiments, $children) {
-  while ($sentiments.hasChildNodes()) {
-    $sentiments.removeChild($children[0])
-  }
+function deleteSentiments() {
+  return fetch('/api/terms/', {
+    method: 'DELETE'
+  })
+    .then(function (res) {
+      console.log(res)
+    })
+    .catch(function (err) {
+      console.error(err)
+    })
+}
+
+function clearList($sentiments) {
+  const $children = document.querySelectorAll('.sentiment')
+  $children.forEach(function ($children) {
+    $children.setAttribute('class', 'sentiment rounded mr-lg-5 mb-lg-3 px-lg-4 py-lg-4 animated fadeOut')
+    setTimeout(function () {
+      $sentiments.removeChild($children)
+    }, 1000)
+  })
+}
+
+function disableButton($button) {
+  $button.classList.add('disabled')
+}
+
+function enableButton($button) {
+  $button.classList.remove('disabled')
 }
 
 const $submit = document.querySelector('#submit')
@@ -40,8 +64,11 @@ $submit.addEventListener('click', function (event) {
     const [ key, value ] = pair
     term[key] = value
   }
-  postSentiment(term)
+  if (term['searchTerm'] !== '') {
+    postSentiment(term)
+  }
   document.querySelector('#search-term').value = ''
+  enableButton($show)
 })
 
 const $show = document.querySelector('#show')
@@ -49,10 +76,11 @@ $show.addEventListener('click', function (event) {
   event.preventDefault()
 
   const $sentiments = document.querySelector('.sentiments')
-  if ($sentiments.hasChildNodes()) {
-    const $children = $sentiments.children
-    clearSentiments($sentiments, $children)
-  }
+  const $children = document.querySelectorAll('.sentiment')
+  $children.forEach(function ($children) {
+    $sentiments.removeChild($children)
+  })
+
   let numberId = 0
   getData()
     .then(function (terms) {
@@ -66,4 +94,16 @@ $show.addEventListener('click', function (event) {
     .catch(function (err) {
       console.error(err)
     })
+  disableButton($show)
+})
+
+const $clear = document.querySelector('#clear')
+$clear.addEventListener('click', function (event) {
+  event.preventDefault()
+  const $sentiments = document.querySelector('.sentiments')
+  if ($sentiments.hasChildNodes()) {
+    deleteSentiments()
+    clearList($sentiments)
+  }
+  enableButton($show)
 })

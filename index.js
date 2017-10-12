@@ -60,6 +60,17 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
       })
   })
 
+  app.delete('/api/terms', (req, res) => {
+    terms.deleteMany()
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.error(err)
+        process.exit(1)
+      })
+  })
+
   const PORT = process.env.PORT || 3000
   app.listen(PORT, err => {
     if (err) {
