@@ -48,6 +48,9 @@ const $show = document.querySelector('#show')
 $show.addEventListener('click', function (event) {
   event.preventDefault()
 
+  const $content = document.querySelector('#content')
+  $content.classList.remove('hidden')
+
   const $sentiments = document.querySelector('.sentiments')
   if ($sentiments.hasChildNodes()) {
     const $children = $sentiments.children
