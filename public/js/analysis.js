@@ -117,20 +117,8 @@ function renderContent(query, data, id) {
 
       const $span = document.createElement('span')
       const $img = document.createElement('img')
-      switch (data['sentiment']) {
-        case 'Positive':
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/positive.png')
-          break
-        case 'Negative':
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/negative.png')
-          break
-        default:
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/neutral.png')
-          break
-      }
+      $img.setAttribute('class', 'ml-lg-4')
+      $img.setAttribute('src', `./images/${data['sentiment'].toLowerCase()}.png`)
       $span.appendChild($img)
       $h5.appendChild($span)
 

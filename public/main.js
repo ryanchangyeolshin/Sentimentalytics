@@ -16,18 +16,6 @@ function postSentiment(term) {
     },
     body: JSON.stringify(term)
   })
-    .then(function (res) {
-      console.log(res)
-    })
-    .catch(function (err) {
-      console.error(err)
-    })
-}
-
-function clearSentiments($sentiments, $children) {
-  while ($sentiments.hasChildNodes()) {
-    $sentiments.removeChild($children[0])
-  }
 }
 
 const $submit = document.querySelector('#submit')
@@ -52,10 +40,6 @@ $show.addEventListener('click', function (event) {
   $content.classList.remove('hidden')
 
   const $sentiments = document.querySelector('.sentiments')
-  if ($sentiments.hasChildNodes()) {
-    const $children = $sentiments.children
-    clearSentiments($sentiments, $children)
-  }
   let numberId = 0
   getData()
     .then(function (terms) {
@@ -69,4 +53,5 @@ $show.addEventListener('click', function (event) {
     .catch(function (err) {
       console.error(err)
     })
+  $show.classList.add('disabled')
 })
