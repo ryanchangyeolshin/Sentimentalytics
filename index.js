@@ -28,6 +28,18 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
       })
   })
 
+  app.get('/api/terms/:term', (req, res) => {
+    const searchTerm = req.params.term
+    terms.findOne({ searchTerm: searchTerm })
+      .then(term => {
+        res.json(term)
+      })
+      .catch(err => {
+        console.error(err)
+        res.sendStatus(500)
+      })
+  })
+
   app.post('/api/terms', (req, res) => {
     const term = req.body
     if (!term) {
@@ -53,7 +65,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
             process.exit(1)
           }
           else {
-            console.log(response)
+            console.log(response.ops[0])
             res.sendStatus(201)
           }
         })

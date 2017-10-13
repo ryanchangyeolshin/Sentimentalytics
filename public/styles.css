@@ -8,7 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
 
   /* Visuals */
-  background: url('https://visualhunt.com/photos/m/7/mountain-fog-tree-mountain.jpg') no-repeat center center fixed;
+  background: url('https://i.imgur.com/5UucST1.gif') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -23,7 +23,8 @@ body {
   opacity: 0.9;
 }
 
-h1 {
+h1,
+h3 {
   /* Typography */
   letter-spacing: 10px;
 }
@@ -35,7 +36,7 @@ h1 {
   opacity: 0.9;
 }
 
-h3 {
+h4 {
   /* Typography */
   text-decoration: underline;
 }
@@ -44,4 +45,9 @@ img {
   /* Positioning */
   width: 80px;
   height: 80px;
+}
+
+.hidden {
+  /* Box Model */
+  display: none;
 }
