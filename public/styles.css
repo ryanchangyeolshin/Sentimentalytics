@@ -29,6 +29,11 @@ h3 {
   letter-spacing: 10px;
 }
 
+#search-term {
+  /* Visuals */
+  color: white;
+}
+
 .sentiment {
   /* Visuals */
   background-color: #f1f2f1;
