@@ -83,8 +83,8 @@ function renderListGroupItem(query, id) {
 
 function renderContent(query, data, id) {
   const $content = document.createElement('div')
-  const $h3 = document.createElement('h3')
-  $h3.setAttribute('class', 'text-center')
+  const $h4 = document.createElement('h4')
+  $h4.setAttribute('class', 'text-center')
 
   const $h5 = document.createElement('h5')
   switch (query) {
@@ -94,13 +94,13 @@ function renderContent(query, data, id) {
       $content.setAttribute('role', 'tab-panel')
       $content.setAttribute('aria-labelledby', `list-search-term-list-${id}`)
 
-      $h3.textContent = 'Search Term'
+      $h4.textContent = 'Search Term'
 
       $h5.setAttribute('class', 'text-center mt-3')
       $h5.setAttribute('id', 'term')
       $h5.textContent = data['searchTerm']
 
-      $content.appendChild($h3)
+      $content.appendChild($h4)
       $content.appendChild($h5)
       break
     case 'sentiment':
@@ -109,7 +109,7 @@ function renderContent(query, data, id) {
       $content.setAttribute('role', 'tab-panel')
       $content.setAttribute('aria-labelledby', `list-sentiment-list-${id}`)
 
-      $h3.textContent = 'Sentiment'
+      $h4.textContent = 'Sentiment'
 
       $h5.setAttribute('class', 'mt-3')
       $h5.setAttribute('id', 'term')
@@ -117,24 +117,12 @@ function renderContent(query, data, id) {
 
       const $span = document.createElement('span')
       const $img = document.createElement('img')
-      switch (data['sentiment']) {
-        case 'Positive':
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/positive.png')
-          break
-        case 'Negative':
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/negative.png')
-          break
-        default:
-          $img.setAttribute('class', 'ml-lg-4')
-          $img.setAttribute('src', './images/neutral.png')
-          break
-      }
+      $img.setAttribute('src', `./images/${data['sentiment'].toLowerCase()}.png`)
+      $img.setAttribute('class', 'ml-lg-3')
       $span.appendChild($img)
       $h5.appendChild($span)
 
-      $content.appendChild($h3)
+      $content.appendChild($h4)
       $content.appendChild($h5)
       break
     default:
@@ -143,11 +131,12 @@ function renderContent(query, data, id) {
       $content.setAttribute('role', 'tab-panel')
       $content.setAttribute('aria-labelledby', `list-confidence-list-${id}`)
 
-      $h3.textContent = 'Confidence'
+      $h4.textContent = 'Confidence'
 
       const $pieChart = document.createElement('div')
-      $pieChart.setAttribute('id', `pieChart${id}`)
-      $content.appendChild($h3)
+      $pieChart.setAttribute('id', `viz-${id}`)
+      $pieChart.setAttribute('style', 'width: 650px; height: 500px;')
+      $content.appendChild($h4)
       $content.appendChild($pieChart)
       break
   }
