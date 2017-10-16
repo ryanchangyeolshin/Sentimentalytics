@@ -13,6 +13,14 @@ function renderNewPie(data, id) {
     .data(sentimentPieData)
     .type('pie')
     .id('name')
+    .labels({
+      'align': 'center',
+      'valign': 'middle',
+      'resize': false,
+      'font': {
+        'size': 20
+      }
+    })
     .size('value')
     .draw()
 }
