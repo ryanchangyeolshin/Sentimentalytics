@@ -1,8 +1,19 @@
 /* global renderAnalysis */
 /* global renderNewPie */
+/* global renderTableContent */
 
 function getData(term) {
   return fetch(`/api/terms/${term}`)
+    .then(function (res) {
+      return res.json()
+    })
+    .catch(function (err) {
+      console.error(err)
+    })
+}
+
+function getAllData() {
+  return fetch('/api/terms/')
     .then(function (res) {
       return res.json()
     })
@@ -81,6 +92,25 @@ function clearList($content, $sentiments) {
   })
 }
 
+function toggleContainer($icon) {
+  const $container = document.querySelector('#main-container')
+  const $table = document.querySelector('#table')
+  switch ($icon.getAttribute('id')) {
+    case 'down':
+      $container.classList.add('hidden')
+      $table.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
+      $icon.setAttribute('class', 'd-flex fa fa-chevron-up fa-3x justify-content-center my-lg-5 animated infinite pulse')
+      $icon.setAttribute('id', 'up')
+      break
+    default:
+      $table.classList.add('hidden')
+      $container.setAttribute('class', 'container animated flipInX')
+      $icon.setAttribute('class', 'd-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse')
+      $icon.setAttribute('id', 'down')
+      break
+  }
+}
+
 let numberId = 0
 const $submit = document.querySelector('#submit')
 $submit.addEventListener('click', function (event) {
@@ -108,5 +138,24 @@ $clear.addEventListener('click', function (event) {
   if ($sentiments.hasChildNodes()) {
     deleteSentiments()
     clearList($content, $sentiments)
+  }
+})
+
+const $transitions = document.querySelector('.transitions')
+$transitions.addEventListener('click', function (event) {
+  if (event.target.getAttribute('id') === 'down') {
+    const $table = document.querySelector('#table')
+    getAllData()
+      .then(function (data) {
+        if (document.querySelector('.card')) {
+          $table.removeChild(document.querySelector('.card'))
+        }
+        const $tableContent = renderTableContent(data)
+        $table.appendChild($tableContent)
+      })
+    toggleContainer(event.target)
+  }
+  else if (event.target.getAttribute('id') === 'up') {
+    toggleContainer(event.target)
   }
 })
