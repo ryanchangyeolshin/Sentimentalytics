@@ -117,8 +117,8 @@ function renderContent(query, data, id) {
 
       const $span = document.createElement('span')
       const $img = document.createElement('img')
+      $img.setAttribute('class', 'ml-lg-5')
       $img.setAttribute('src', `./images/${data['sentiment'].toLowerCase()}.png`)
-      $img.setAttribute('class', 'ml-lg-3')
       $span.appendChild($img)
       $h5.appendChild($span)
 
