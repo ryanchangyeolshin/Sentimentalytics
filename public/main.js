@@ -111,6 +111,10 @@ function toggleContainer($icon) {
   }
 }
 
+window.addEventListener('load', function (event) {
+  deleteSentiments()
+})
+
 let numberId = 0
 const $submit = document.querySelector('#submit')
 $submit.addEventListener('click', function (event) {
