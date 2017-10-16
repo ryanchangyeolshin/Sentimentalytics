@@ -16,7 +16,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
   app.use(bodyParser.json())
 
   const terms = db.collection('terms')
-  app.get('/terms', (req, res) => {
+  app.get('/api/terms', (req, res) => {
     terms.find()
       .toArray()
       .then(terms => {
@@ -28,7 +28,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
       })
   })
 
-  app.post('/terms', (req, res) => {
+  app.post('/api/terms', (req, res) => {
     const term = req.body
     if (!term) {
       return res.sendStatus(400)
