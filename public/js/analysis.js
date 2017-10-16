@@ -135,7 +135,7 @@ function renderContent(query, data, id) {
 
       const $pieChart = document.createElement('div')
       $pieChart.setAttribute('id', `viz-${id}`)
-      $pieChart.setAttribute('style', `width: 650px; height: 500px;`)
+      $pieChart.setAttribute('style', 'width: 650px; height: 500px;')
       $content.appendChild($h4)
       $content.appendChild($pieChart)
       break
