@@ -30,9 +30,6 @@ function postSentiment(term) {
     },
     body: JSON.stringify(term)
   })
-    .then(function (res) {
-      console.log(res)
-    })
     .catch(function (err) {
       console.error(err)
     })
@@ -42,12 +39,6 @@ function deleteSentiments() {
   return fetch('/api/terms/', {
     method: 'DELETE'
   })
-    .then(function (res) {
-      console.log(res)
-    })
-    .catch(function (err) {
-      console.error(err)
-    })
 }
 
 function renderSentiment(term, $sentiments) {
