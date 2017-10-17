@@ -1,7 +1,3 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const path = require('path')
-const unirest = require('unirest')
 const { MongoClient } = require('mongodb')
 
 MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
@@ -9,10 +5,14 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
     console.error(err)
     process.exit(1)
   }
+  const express = require('express')
   const app = express()
   const router = express.Router()
+  const path = require('path')
   const publicPath = path.join(__dirname, 'public')
   app.use(express.static(publicPath))
+
+  const bodyParser = require('body-parser')
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
 
@@ -36,6 +36,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
     const termValue = body['searchTerm']
     const url = 'https://community-sentiment.p.mashape.com/text/'
     const mashapeKey = require('./private/keys')
+    const unirest = require('unirest')
     unirest.post(url)
       .header('X-Mashape-Key', mashapeKey)
       .header('Content-Type', 'application/x-www-form-urlencoded')

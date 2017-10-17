@@ -3,6 +3,16 @@
 /* global renderTableContent */
 /* global TableExport */
 
+function getFormData() {
+  const $form = new FormData(document.querySelector('.form'))
+  const term = {}
+  for (let pair of $form.entries()) {
+    const [ key, value ] = pair
+    term[key] = value
+  }
+  return term
+}
+
 function getData(term) {
   return fetch(`/api/terms/${term}`)
     .then(function (res) {
@@ -42,35 +52,12 @@ function deleteSentiments() {
   })
 }
 
-function renderSentiment(term, $sentiments) {
-  getData(term['searchTerm'])
-    .then(function (termData) {
-      if (termData !== null) {
-        const $sentiment = renderAnalysis(termData, numberId)
-        $sentiments.appendChild($sentiment)
-        renderNewPie(termData, numberId)
-        const $content = document.querySelector('#content')
-        $content.classList.remove('hidden')
-        numberId++
-      }
-      else {
-        postSentiment(term)
-          .then(function () {
-            getData(term['searchTerm'])
-              .then(function (termData) {
-                const $sentiment = renderAnalysis(termData, numberId)
-                $sentiments.appendChild($sentiment)
-                renderNewPie(termData, numberId)
-                const $content = document.querySelector('#content')
-                $content.classList.remove('hidden')
-                numberId++
-              })
-          })
-      }
-    })
-    .catch(function (err) {
-      console.error(err)
-    })
+function showSentiment(numberId, $sentiments, termData) {
+  const $sentiment = renderAnalysis(termData, numberId)
+  $sentiments.appendChild($sentiment)
+  renderNewPie(termData, numberId)
+  const $content = document.querySelector('#content')
+  $content.classList.remove('hidden')
 }
 
 function clearList($content, $sentiments) {
@@ -120,17 +107,32 @@ let numberId = 0
 const $submit = document.querySelector('#submit')
 $submit.addEventListener('click', function (event) {
   event.preventDefault()
-
-  const $form = new FormData(document.querySelector('.form'))
-  const term = {}
-  for (let pair of $form.entries()) {
-    const [ key, value ] = pair
-    term[key] = value
-  }
-
+  const formData = getFormData()
   const $sentiments = document.querySelector('.sentiments')
-  if (term['searchTerm'] !== '') {
-    renderSentiment(term, $sentiments)
+  if (formData['searchTerm'] !== '') {
+    getData(formData['searchTerm'])
+      .then(function (termData) {
+        if (termData !== null) {
+          showSentiment(numberId, $sentiments, termData)
+          numberId++
+        }
+        else {
+          postSentiment(formData)
+            .then(function () {
+              getData(formData['searchTerm'])
+                .then(function (termData) {
+                  showSentiment(numberId, $sentiments, termData)
+                  numberId++
+                })
+            })
+            .catch(function (err) {
+              console.error(err)
+            })
+        }
+      })
+      .catch(function (err) {
+        console.error(err)
+      })
   }
   document.querySelector('#search-term').value = ''
 })
@@ -148,22 +150,24 @@ $clear.addEventListener('click', function (event) {
 
 const $transitions = document.querySelector('.transitions')
 $transitions.addEventListener('click', function (event) {
-  if (event.target.getAttribute('id') === 'down') {
-    const $table = document.querySelector('#table')
-    getAllData()
-      .then(function (data) {
-        if (document.querySelector('.card')) {
-          $table.removeChild(document.querySelector('.card'))
-        }
-        const $tableContent = renderTableContent(data)
-        const $export = renderExportButton()
-        $table.appendChild($tableContent)
-        $table.appendChild($export)
-      })
-    toggleContainer(event.target)
-  }
-  else if (event.target.getAttribute('id') === 'up') {
-    toggleContainer(event.target)
+  switch (event.target.getAttribute('id')) {
+    case 'down':
+      const $table = document.querySelector('#table')
+      getAllData()
+        .then(function (data) {
+          if (document.querySelector('.card')) {
+            $table.removeChild(document.querySelector('.card'))
+          }
+          const $tableContent = renderTableContent(data)
+          const $export = renderExportButton()
+          $table.appendChild($tableContent)
+          $table.appendChild($export)
+        })
+      toggleContainer(event.target)
+      break
+    default:
+      toggleContainer(event.target)
+      break
   }
 })
 
