@@ -157,6 +157,7 @@ $transitions.addEventListener('click', function (event) {
         .then(function (data) {
           if (document.querySelector('.card')) {
             $table.removeChild(document.querySelector('.card'))
+            $table.removeChild(document.querySelector('#export'))
           }
           const $tableContent = renderTableContent(data)
           const $export = renderExportButton()
