@@ -1,6 +1,7 @@
 /* global renderAnalysis */
 /* global renderNewPie */
 /* global renderTableContent */
+/* global TableExport */
 
 function getData(term) {
   return fetch(`/api/terms/${term}`)
@@ -102,6 +103,15 @@ function toggleContainer($icon) {
   }
 }
 
+function renderExportButton() {
+  const $export = document.createElement('button')
+  $export.setAttribute('class', 'btn btn-outline-primary waves-effect mt-lg-4')
+  $export.setAttribute('id', 'export')
+  $export.setAttribute('data-type', 'csv')
+  $export.textContent = 'Export as CSV'
+  return $export
+}
+
 window.addEventListener('load', function (event) {
   deleteSentiments()
 })
@@ -146,11 +156,33 @@ $transitions.addEventListener('click', function (event) {
           $table.removeChild(document.querySelector('.card'))
         }
         const $tableContent = renderTableContent(data)
+        const $export = renderExportButton()
         $table.appendChild($tableContent)
+        $table.appendChild($export)
       })
     toggleContainer(event.target)
   }
   else if (event.target.getAttribute('id') === 'up') {
     toggleContainer(event.target)
+  }
+})
+
+const $table = document.querySelector('#table')
+$table.addEventListener('click', function (event) {
+  if (event.target.nodeName === 'BUTTON') {
+    const data = new TableExport($table, {
+      headers: true,
+      footers: true,
+      formats: ['csv'],
+      filename: 'data',
+      bootstrap: false,
+      exportButtons: false,
+      position: 'bottom',
+      ignoreRows: null,
+      ignoreCols: null,
+      trimWhitespace: true
+    })
+    const exportData = data.getExportData()['table']['csv']
+    data.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension)
   }
 })
