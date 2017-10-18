@@ -1,5 +1,23 @@
 /* eslint-disable no-unused-vars */
 
+function renderTable(data) {
+  const $card = renderTableContent(data)
+  const $table = document.createElement('div')
+  $table.setAttribute('class', 'container hidden px-lg-5 py-lg-5')
+  $table.setAttribute('id', 'table')
+
+  const $tableHeading = document.createElement('h3')
+  $tableHeading.setAttribute('class', 'text-center font-weight-bold mb-lg-4')
+  $tableHeading.textContent = 'Table'
+
+  const $export = renderExportButton(document.createElement('button'))
+
+  $table.appendChild($tableHeading)
+  $table.appendChild($card)
+  $table.appendChild($export)
+  return $table
+}
+
 function renderTableContent(data) {
   const $card = document.createElement('div')
   const $cardBody = document.createElement('div')
@@ -75,4 +93,12 @@ function renderTableRow(data, id) {
   $tr.appendChild($confidence)
 
   return $tr
+}
+
+function renderExportButton($export) {
+  $export.setAttribute('class', 'btn btn-outline-primary waves-effect mt-lg-4')
+  $export.setAttribute('id', 'export')
+  $export.setAttribute('data-type', 'csv')
+  $export.textContent = 'Export as CSV'
+  return $export
 }

@@ -13,30 +13,27 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container" id="main-container">
-      <div class="jumbotron">
-        <h1 class="name text-center font-weight-bold animated flash">Sentimentalytics</h1>
-      </div>
-      <form class="form py-lg-4 mx-lg-5">
-        <div class="form-group">
-          <label for="search-term">Search Term</label>
-          <input type="text" class="form-control" id="search-term" name="searchTerm" placeholder="Enter search term..." />
+    <div class="wrapper">
+      <div class="container active" id="main">
+        <div class="jumbotron">
+          <h1 class="name text-center font-weight-bold animated flash">Sentimentalytics</h1>
         </div>
-        <div class="buttons py-lg-4">
-          <button type="submit" class="btn btn-outline-success waves-effect btn-lg mr-lg-3" id="submit" name="button">Submit</button>
-          <button type="submit" class="btn btn-outline-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
+        <form class="form py-lg-4 mx-lg-5">
+          <div class="form-group">
+            <label for="search-term">Search Term</label>
+            <input type="text" class="form-control" id="search-term" name="searchTerm" placeholder="Enter search term..." />
+          </div>
+          <div class="buttons py-lg-4">
+            <button type="submit" class="btn btn-outline-success waves-effect btn-lg mr-lg-3" id="submit" name="button">Submit</button>
+            <button type="submit" class="btn btn-outline-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
+          </div>
+        </form>
+        <div class="py-lg-4 hidden" id="content">
+          <h3 class="text-center font-weight-bold">Analyses</h3>
+          <ul class="sentiments mt-lg-4"></ul>
         </div>
-      </form>
-      <div class="py-lg-4 hidden" id="content">
-        <h3 class="text-center font-weight-bold">Analyses</h3>
-        <ul class="sentiments mt-lg-4"></ul>
       </div>
-    </div>
-    <div class="transitions">
-      <i class="d-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse" id="down" aria-hidden="true"></i>
-    </div>
-    <div class="container hidden px-lg-5 py-lg-5" id="table">
-      <h3 class="text-center font-weight-bold mb-lg-4">Table</h3>
+      <i class="icon d-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse" id="down" aria-hidden="true"></i>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>

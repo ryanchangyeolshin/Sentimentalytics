@@ -1,12 +1,12 @@
 /* global renderAnalysis */
 /* global renderNewPie */
-/* global renderTableContent */
+/* global renderTable */
 /* global TableExport */
 
-function getFormData() {
-  const $form = new FormData(document.querySelector('.form'))
+function getFormData($form) {
+  const form = new FormData($form)
   const term = {}
-  for (let pair of $form.entries()) {
+  for (let pair of form.entries()) {
     const [ key, value ] = pair
     term[key] = value
   }
@@ -71,32 +71,35 @@ function clearList($content, $sentiments) {
   })
 }
 
-function toggleContainer($icon) {
-  const $container = document.querySelector('#main-container')
-  const $table = document.querySelector('#table')
+function removeTable($table) {
+  if ($table) {
+    document.querySelector('.wrapper').removeChild($table)
+  }
+}
+
+function toggleIcon($icon) {
   switch ($icon.getAttribute('id')) {
     case 'down':
-      $container.classList.add('hidden')
-      $table.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
       $icon.setAttribute('class', 'd-flex fa fa-chevron-up fa-3x justify-content-center my-lg-5 animated infinite pulse')
       $icon.setAttribute('id', 'up')
       break
     default:
-      $table.classList.add('hidden')
-      $container.setAttribute('class', 'container animated flipInX')
       $icon.setAttribute('class', 'd-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse')
       $icon.setAttribute('id', 'down')
       break
   }
 }
 
-function renderExportButton() {
-  const $export = document.createElement('button')
-  $export.setAttribute('class', 'btn btn-outline-primary waves-effect mt-lg-4')
-  $export.setAttribute('id', 'export')
-  $export.setAttribute('data-type', 'csv')
-  $export.textContent = 'Export as CSV'
-  return $export
+function swapView($viewOne, $viewTwo, $icon) {
+  if ($viewOne.classList.contains('hidden')) {
+    $viewOne.setAttribute('class', 'container animated flipInX')
+    $viewTwo.setAttribute('class', 'hidden')
+  }
+  else {
+    $viewTwo.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
+    $viewOne.setAttribute('class', 'hidden')
+  }
+  toggleIcon($icon)
 }
 
 window.addEventListener('load', function (event) {
@@ -107,7 +110,7 @@ let numberId = 0
 const $submit = document.querySelector('#submit')
 $submit.addEventListener('click', function (event) {
   event.preventDefault()
-  const formData = getFormData()
+  const formData = getFormData(document.querySelector('.form'))
   const $sentiments = document.querySelector('.sentiments')
   if (formData['searchTerm'] !== '') {
     getData(formData['searchTerm'])
@@ -137,57 +140,45 @@ $submit.addEventListener('click', function (event) {
   document.querySelector('#search-term').value = ''
 })
 
-const $clear = document.querySelector('#clear')
-$clear.addEventListener('click', function (event) {
-  event.preventDefault()
-  const $content = document.querySelector('#content')
-  const $sentiments = document.querySelector('.sentiments')
-  if ($sentiments.hasChildNodes()) {
-    deleteSentiments()
-    clearList($content, $sentiments)
-  }
-})
-
-const $transitions = document.querySelector('.transitions')
-$transitions.addEventListener('click', function (event) {
+const $wrapper = document.querySelector('.wrapper')
+$wrapper.addEventListener('click', function (event) {
   switch (event.target.getAttribute('id')) {
+    case 'clear':
+      event.preventDefault()
+      const $content = document.querySelector('#content')
+      const $sentiments = document.querySelector('.sentiments')
+      if ($sentiments.hasChildNodes()) {
+        deleteSentiments()
+        clearList($content, $sentiments)
+      }
+      break
     case 'down':
-      const $table = document.querySelector('#table')
+    case 'up':
+      removeTable(document.querySelector('#table'))
       getAllData()
         .then(function (data) {
-          if (document.querySelector('.card')) {
-            $table.removeChild(document.querySelector('.card'))
-            $table.removeChild(document.querySelector('#export'))
-          }
-          const $tableContent = renderTableContent(data)
-          const $export = renderExportButton()
-          $table.appendChild($tableContent)
-          $table.appendChild($export)
+          const $table = renderTable(data)
+          document.querySelector('.wrapper').appendChild($table)
+          swapView(document.querySelector('#main'), document.querySelector('#table'), document.querySelector('i'))
         })
-      toggleContainer(event.target)
+      break
+    case 'export':
+      const data = new TableExport(document.querySelector('#table'), {
+        headers: true,
+        footers: true,
+        formats: ['csv'],
+        filename: 'data',
+        bootstrap: false,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: null,
+        trimWhitespace: true
+      })
+      const exportData = data.getExportData()['table']['csv']
+      data.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension)
       break
     default:
-      toggleContainer(event.target)
-      break
-  }
-})
-
-const $table = document.querySelector('#table')
-$table.addEventListener('click', function (event) {
-  if (event.target.nodeName === 'BUTTON') {
-    const data = new TableExport($table, {
-      headers: true,
-      footers: true,
-      formats: ['csv'],
-      filename: 'data',
-      bootstrap: false,
-      exportButtons: false,
-      position: 'bottom',
-      ignoreRows: null,
-      ignoreCols: null,
-      trimWhitespace: true
-    })
-    const exportData = data.getExportData()['table']['csv']
-    data.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension)
+      return null
   }
 })
