@@ -1,11 +1,9 @@
 const express = require('express')
 const path = require('path')
-const bodyParser = require('body-parser')
 const fetchSentiment = require('./fetch-sentiment')
 
 const publicPath = path.join(__dirname, '../public')
 const publicDir = express.static(publicPath)
-const bodyParserJSON = bodyParser.json()
 
 const cache = terms => ({ params: { term } }, res, next) => {
   terms.findOne({ term: term })
@@ -20,6 +18,5 @@ const cache = terms => ({ params: { term } }, res, next) => {
 
 module.exports = {
   publicDir,
-  bodyParserJSON,
   cache
 }
