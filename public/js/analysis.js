@@ -98,7 +98,7 @@ function renderContent(query, data, id) {
 
       $h5.setAttribute('class', 'text-center mt-3')
       $h5.setAttribute('id', 'term')
-      $h5.textContent = data['searchTerm']
+      $h5.textContent = data['term']
 
       $content.appendChild($h4)
       $content.appendChild($h5)

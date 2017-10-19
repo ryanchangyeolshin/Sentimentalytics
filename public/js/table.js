@@ -83,7 +83,7 @@ function renderTableRow(data, id) {
   $id.setAttribute('scope', 'row')
 
   $id.textContent = data['_id']
-  $searchTerm.textContent = data['searchTerm']
+  $searchTerm.textContent = data['term']
   $sentiment.textContent = data['sentiment']
   $confidence.textContent = data['confidence']
 

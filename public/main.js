@@ -3,7 +3,7 @@
 /* global renderTable */
 /* global TableExport */
 
-function getFormData($form) {
+function Form($form) {
   const form = new FormData($form)
   const term = {}
   for (let pair of form.entries()) {
@@ -13,7 +13,7 @@ function getFormData($form) {
   return term
 }
 
-function getData(term) {
+function getSentiment(term) {
   return fetch(`/api/terms/${term}`)
     .then(function (res) {
       return res.json()
@@ -23,24 +23,11 @@ function getData(term) {
     })
 }
 
-function getAllData() {
+function getAllSentiments() {
   return fetch('/api/terms/')
     .then(function (res) {
       return res.json()
     })
-    .catch(function (err) {
-      console.error(err)
-    })
-}
-
-function postSentiment(term) {
-  return fetch('/api/terms/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(term)
-  })
     .catch(function (err) {
       console.error(err)
     })
@@ -107,47 +94,26 @@ window.addEventListener('load', function (event) {
 })
 
 let numberId = 0
-const $submit = document.querySelector('#submit')
-$submit.addEventListener('click', function (event) {
-  event.preventDefault()
-  const formData = getFormData(document.querySelector('.form'))
-  const $sentiments = document.querySelector('.sentiments')
-  if (formData['searchTerm'] !== '') {
-    getData(formData['searchTerm'])
-      .then(function (termData) {
-        if (termData !== null) {
-          showSentiment(numberId, $sentiments, termData)
-          numberId++
-        }
-        else {
-          postSentiment(formData)
-            .then(function () {
-              getData(formData['searchTerm'])
-                .then(function (termData) {
-                  showSentiment(numberId, $sentiments, termData)
-                  numberId++
-                })
-            })
-            .catch(function (err) {
-              console.error(err)
-            })
-        }
-      })
-      .catch(function (err) {
-        console.error(err)
-      })
-  }
-  document.querySelector('#search-term').value = ''
-})
-
 const $wrapper = document.querySelector('.wrapper')
 $wrapper.addEventListener('click', function (event) {
   switch (event.target.getAttribute('id')) {
+    case 'submit':
+      event.preventDefault()
+      const form = Form(document.querySelector('.form'))
+      const $sentiments = document.querySelector('.sentiments')
+      if (form['term'] !== '') {
+        getSentiment(form['term'])
+          .then(function (sentiment) {
+            showSentiment(numberId, $sentiments, sentiment)
+            numberId++
+          })
+      }
+      document.querySelector('#search-term').value = ''
+      break
     case 'clear':
       event.preventDefault()
       const $content = document.querySelector('#content')
-      const $sentiments = document.querySelector('.sentiments')
-      if ($sentiments.hasChildNodes()) {
+      if (document.querySelector('.sentiments').hasChildNodes()) {
         deleteSentiments()
         clearList($content, $sentiments)
       }
@@ -155,7 +121,7 @@ $wrapper.addEventListener('click', function (event) {
     case 'down':
     case 'up':
       removeTable(document.querySelector('#table'))
-      getAllData()
+      getAllSentiments()
         .then(function (data) {
           const $table = renderTable(data)
           document.querySelector('.wrapper').appendChild($table)
@@ -178,7 +144,5 @@ $wrapper.addEventListener('click', function (event) {
       const exportData = data.getExportData()['table']['csv']
       data.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension)
       break
-    default:
-      return null
   }
 })
