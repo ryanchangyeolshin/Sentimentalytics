@@ -89,11 +89,20 @@ function swapView($viewOne, $viewTwo, $icon) {
   toggleIcon($icon)
 }
 
+function randomIdGenerator() {
+  var id = ''
+  var numAndChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  for (var i = 0; i < 5; i++) {
+    id += numAndChars.charAt(Math.floor(Math.random() * numAndChars.length))
+  }
+  return id
+}
+
 window.addEventListener('load', function (event) {
   deleteSentiments()
 })
 
-let numberId = 0
 const $wrapper = document.querySelector('.wrapper')
 $wrapper.addEventListener('click', function (event) {
   const $sentiments = document.querySelector('.sentiments')
@@ -104,8 +113,7 @@ $wrapper.addEventListener('click', function (event) {
       if (form['term'] !== '') {
         getSentiment(form['term'])
           .then(function (sentiment) {
-            showSentiment(numberId, $sentiments, sentiment)
-            numberId++
+            showSentiment(randomIdGenerator(), $sentiments, sentiment)
           })
       }
       document.querySelector('#search-term').value = ''
