@@ -96,11 +96,11 @@ window.addEventListener('load', function (event) {
 let numberId = 0
 const $wrapper = document.querySelector('.wrapper')
 $wrapper.addEventListener('click', function (event) {
+  const $sentiments = document.querySelector('.sentiments')
   switch (event.target.getAttribute('id')) {
     case 'submit':
       event.preventDefault()
       const form = Form(document.querySelector('.form'))
-      const $sentiments = document.querySelector('.sentiments')
       if (form['term'] !== '') {
         getSentiment(form['term'])
           .then(function (sentiment) {
@@ -113,7 +113,7 @@ $wrapper.addEventListener('click', function (event) {
     case 'clear':
       event.preventDefault()
       const $content = document.querySelector('#content')
-      if (document.querySelector('.sentiments').hasChildNodes()) {
+      if ($sentiments.hasChildNodes()) {
         deleteSentiments()
         clearList($content, $sentiments)
       }

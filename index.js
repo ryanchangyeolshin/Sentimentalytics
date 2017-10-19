@@ -18,7 +18,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
 
   const terms = db.collection('terms')
 
-  const cache = ({ params: { term }, body }, res, next) => {
+  const cache = ({ params: { term } }, res, next) => {
     terms.findOne({ term: term })
       .then(sentiment => {
         if (sentiment !== null) {
