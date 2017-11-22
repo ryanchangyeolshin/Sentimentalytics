@@ -52,6 +52,11 @@ img {
   height: 80px;
 }
 
+.data {
+  /* Visuals */
+  color: black;
+}
+
 .hidden {
   /* Box Model */
   display: none;

@@ -9,38 +9,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/TableExport/4.0.11/css/tableexport.min.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="jumbotron">
-        <h1 class="name text-center font-weight-bold animated flash">Sentimentalytics</h1>
+    <div class="wrapper">
+      <div class="container active" id="main">
+        <div class="jumbotron">
+          <h1 class="name text-center font-weight-bold animated flash">Sentimentalytics</h1>
+        </div>
+        <form class="form py-lg-4 mx-lg-5">
+          <div class="form-group">
+            <label for="term">Search Term</label>
+            <input type="text" class="form-control" id="search-term" name="term" placeholder="Enter search term..." />
+          </div>
+          <div class="buttons py-lg-4">
+            <button type="submit" class="btn btn-outline-success waves-effect btn-lg mr-lg-3" id="submit" name="button">Submit</button>
+            <button type="submit" class="btn btn-outline-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
+          </div>
+        </form>
+        <div class="py-lg-4 hidden" id="content">
+          <h3 class="text-center font-weight-bold">Analyses</h3>
+          <ul class="sentiments mt-lg-4"></ul>
+        </div>
       </div>
-      <form class="form py-lg-4 mx-lg-5">
-        <div class="form-group">
-          <label for="search-term">Search Term</label>
-          <input type="text" class="form-control" id="search-term" name="searchTerm" placeholder="Enter search term..." />
-        </div>
-        <div class="buttons py-lg-4">
-          <button type="submit" class="btn btn-outline-success waves-effect btn-lg mr-lg-3" id="submit" name="button" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Your search term has now been submitted.">Submit</button>
-          <button type="submit" class="btn btn-outline-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
-        </div>
-      </form>
+      <i class="icon d-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse" id="down" aria-hidden="true"></i>
     </div>
-    <div class="container py-lg-4 hidden" id="content">
-      <h3 class="text-center font-weight-bold">Analyses</h3>
-      <ul class="sentiments mt-lg-4"></ul>
-    </div>
-    <i class="d-flex fa fa-chevron-down fa-3x justify-content-center animated infinite pulse" id="down" aria-hidden="true"></i>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3plus/1.9.8/d3plus.full.min.js"></script>
     <script src="https://use.fontawesome.com/6223f24cbd.js"></script>
-    <script src="main.js" type="text/javascript"></script>
-    <script src="./js/analysis.js" type="text/javascript"></script>
-    <script src="./js/pie-chart.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/4.0.11/js/tableexport.min.js"></script>
+    <script src="main.js"></script>
+    <script src="./js/analysis.js"></script>
+    <script src="./js/pie-chart.js"></script>
+    <script src="./js/table.js"></script>
   </body>
 </html>

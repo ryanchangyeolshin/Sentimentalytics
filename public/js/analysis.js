@@ -98,7 +98,7 @@ function renderContent(query, data, id) {
 
       $h5.setAttribute('class', 'text-center mt-3')
       $h5.setAttribute('id', 'term')
-      $h5.textContent = data['searchTerm']
+      $h5.textContent = data['term']
 
       $content.appendChild($h4)
       $content.appendChild($h5)
@@ -117,7 +117,7 @@ function renderContent(query, data, id) {
 
       const $span = document.createElement('span')
       const $img = document.createElement('img')
-      $img.setAttribute('class', 'ml-lg-5')
+      $img.setAttribute('class', 'ml-lg-4')
       $img.setAttribute('src', `./images/${data['sentiment'].toLowerCase()}.png`)
       $span.appendChild($img)
       $h5.appendChild($span)

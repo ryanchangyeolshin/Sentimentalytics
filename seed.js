@@ -1,4 +1,4 @@
-const searchTerms = require('./searchTerms')
+const searchTerms = require('./search-terms')
 const { MongoClient } = require('mongodb')
 
 MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
