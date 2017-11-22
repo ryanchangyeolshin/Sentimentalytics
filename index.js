@@ -10,13 +10,14 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
     process.exit(1)
   }
   const app = express()
+  const router = express.Router()
   const publicPath = path.join(__dirname, 'public')
   app.use(express.static(publicPath))
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
 
   const terms = db.collection('terms')
-  app.get('/api/terms', (req, res) => {
+  router.get('/terms', (req, res) => {
     terms.find()
       .toArray()
       .then(terms => {
@@ -28,24 +29,11 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
       })
   })
 
-  app.get('/api/terms/:term', (req, res) => {
-    const searchTerm = req.params.term
-    terms.findOne({ searchTerm: searchTerm })
-      .then(term => {
-        res.json(term)
-      })
-      .catch(err => {
-        console.error(err)
-        res.sendStatus(500)
-      })
-  })
-
-  app.post('/api/terms', (req, res) => {
-    const term = req.body
-    if (!term) {
+  router.post('/terms', ({ body }, res) => {
+    if (!body) {
       return res.sendStatus(400)
     }
-    const termValue = term['searchTerm']
+    const termValue = body['searchTerm']
     const url = 'https://community-sentiment.p.mashape.com/text/'
     const mashapeKey = require('./private/keys')
     unirest.post(url)
@@ -59,29 +47,41 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
           sentiment: result.body['result']['sentiment'],
           confidence: result.body['result']['confidence']
         }
-        terms.insertOne(data, (err, response) => {
+        terms.insertOne(data, (err) => {
           if (err) {
             console.error(err)
             process.exit(1)
           }
           else {
-            console.log(response.ops[0])
-            res.sendStatus(201)
+            return res.sendStatus(201)
           }
         })
       })
   })
 
-  app.delete('/api/terms', (req, res) => {
+  router.delete('/terms', (req, res) => {
     terms.deleteMany()
-      .then(res => {
-        console.log(res)
+      .then(response => {
+        res.sendStatus(204)
       })
       .catch(err => {
         console.error(err)
         process.exit(1)
       })
   })
+
+  router.get('/terms/:term', ({ params: { term } }, res) => {
+    terms.findOne({ searchTerm: term })
+      .then(term => {
+        res.json(term)
+      })
+      .catch(err => {
+        console.error(err)
+        res.sendStatus(500)
+      })
+  })
+
+  app.use('/api', router)
 
   const PORT = process.env.PORT || 3000
   app.listen(PORT, err => {
