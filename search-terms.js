@@ -1,28 +1,28 @@
 const searchTerms = [
   {
-    searchTerm: 'Hole in one!',
+    term: 'Hole in one!',
     sentiment: 'positive',
-    confidence: 0.9999
+    confidence: 99.99
   },
   {
-    searchTerm: 'Injury',
+    term: 'Injury',
     sentiment: 'negative',
-    confidence: 0.9999
+    confidence: 99.99
   },
   {
-    searchTerm: 'French Fries',
+    term: 'French Fries',
     sentiment: 'positive',
-    confidence: 0.7898
+    confidence: 78.98
   },
   {
-    searchTerm: 'Bugs',
+    term: 'Bugs',
     sentiment: 'negative',
-    confidence: 0.4899
+    confidence: 48.99
   },
   {
-    searchTerm: 'Reading',
+    term: 'Reading',
     sentiment: 'positive',
-    confidence: 0.5001
+    confidence: 50.01
   }
 ]
 
