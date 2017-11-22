@@ -7,7 +7,7 @@ MongoClient.connect('mongodb://localhost/sentiment', (err, db) => {
     process.exit(1)
   }
 
-  createApi(db.collection('terms'))
+  createApi(db.collection('terms'), db.collection('users'))
     .listen(3000, err => {
       if (err) console.error(err)
       else console.log('PORT STARTED ON PORT 3000')

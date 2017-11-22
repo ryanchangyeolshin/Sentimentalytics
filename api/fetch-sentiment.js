@@ -10,6 +10,7 @@ const fetchSentiment = term => {
       .header('Accept', 'application/json')
       .send(`txt=${term}`)
       .end(result => {
+        console.log(result)
         const data = {
           term: term,
           sentiment: result.body['result']['sentiment'],
