@@ -20,11 +20,12 @@
   },
   "homepage": "https://github.com/ryanchangyeolshin/Sentimentalytics#readme",
   "dependencies": {
+    "aylien_textapi": "^0.6.0",
     "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.1",
     "mongodb": "^2.2.31",
-    "path": "^0.12.7",
-    "unirest": "^0.5.1"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "eslint": "^4.8.0",
