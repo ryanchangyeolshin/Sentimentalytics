@@ -7,7 +7,8 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "seed": "node seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/*",
+    "cover": "nyc --reporter=lcov --reporter=text npm test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/ryanchangyeolshin/Sentimentalytics#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "aylien_textapi": "^0.6.0",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
@@ -28,6 +30,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
@@ -37,8 +40,12 @@
     "eslint-plugin-standard": "^3.0.1",
     "htmlhint": "^0.9.13",
     "husky": "^0.14.3",
+    "mocha": "^4.0.1",
+    "node-mocks-http": "^1.6.6",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
+    "nyc": "^11.3.0",
+    "sinon": "^4.1.2",
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0"
   }
