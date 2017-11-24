@@ -1,9 +1,4 @@
-const express = require('express')
-const path = require('path')
 const fetchSentiment = require('./fetch-sentiment')
-
-const publicPath = path.join(__dirname, '../public')
-const publicDir = express.static(publicPath)
 
 const cache = terms => ({ params: { term } }, res, next) => {
   terms.findOne({ term: term })
@@ -17,6 +12,5 @@ const cache = terms => ({ params: { term } }, res, next) => {
 }
 
 module.exports = {
-  publicDir,
   cache
 }
