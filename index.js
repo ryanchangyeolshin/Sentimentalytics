@@ -8,8 +8,13 @@ MongoClient.connect(process.env.MONGODB_URI, (err, db) => {
     process.exit(1)
   }
 
+<<<<<<< HEAD
   createApi(db.collection('terms'))
     .listen(process.env.PORT, err => {
+=======
+  createApi(db.collection('terms'), db.collection('users'))
+    .listen(3000, err => {
+>>>>>>> master
       if (err) console.error(err)
       else console.log('PORT STARTED ON PORT ' + process.env.PORT)
     })
