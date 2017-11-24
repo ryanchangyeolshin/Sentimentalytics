@@ -1,23 +1,26 @@
-const mashapeKey = require('../private/keys')
-const unirest = require('unirest')
+require('dotenv/config')
+const AYLIENTextAPI = require('aylien_textapi')
 
 const fetchSentiment = term => {
-  const url = 'https://community-sentiment.p.mashape.com/text/'
+  const textapi = new AYLIENTextAPI({
+    application_id: process.env.AYLIEN_ID,
+    application_key: process.env.AYLIEN_KEY
+  })
+
   return new Promise((resolve, reject) => {
-    unirest.post(url)
-      .header('X-Mashape-Key', mashapeKey)
-      .header('Content-Type', 'application/x-www-form-urlencoded')
-      .header('Accept', 'application/json')
-      .send(`txt=${term}`)
-      .end(result => {
-        console.log(result)
+    textapi.sentiment({ 'text': term }, (err, res) => {
+      if (err) {
+        reject(err)
+      }
+      else {
         const data = {
-          term: term,
-          sentiment: result.body['result']['sentiment'],
-          confidence: result.body['result']['confidence']
+          term: res.text,
+          sentiment: res.polarity,
+          confidence: res.polarity_confidence
         }
         resolve(data)
-      })
+      }
+    })
   })
 }
 

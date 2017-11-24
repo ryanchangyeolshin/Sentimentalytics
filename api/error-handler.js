@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-  res.sendStatus(500)
-  console.error(err)
-  process.exit(1)
+  console.log(err)
+  res.status(500).json({ error: 'Internal Server Error' })
+  next()
 }
