@@ -1,4 +1,5 @@
 # Sentimentalytics
+[![Build Status](https://travis-ci.org/ryanchangyeolshin/Sentimentalytics.svg?branch=issue-11)](https://travis-ci.org/ryanchangyeolshin/Sentimentalytics)
 [![npm](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)]()
 [![npm](https://img.shields.io/badge/devDependencies-up%20to%20date-brightgreen.svg)]()
 [![npm](https://img.shields.io/badge/license-MIT-yellow.svg)]()
