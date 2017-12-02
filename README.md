@@ -1,12 +1,12 @@
 # Sentimentalytics
 [![Build Status](https://travis-ci.org/ryanchangyeolshin/Sentimentalytics.svg?branch=issue-11)](https://travis-ci.org/ryanchangyeolshin/Sentimentalytics)
-[![npm](https://img.shields.io/badge/coverage-95%25-brightgreen.svg)]()
+[![npm](https://img.shields.io/badge/coverage-97%25-brightgreen.svg)]()
 [![npm](https://img.shields.io/badge/devDependencies-up%20to%20date-brightgreen.svg)]()
 [![npm](https://img.shields.io/badge/license-MIT-yellow.svg)]()
 
 A web application for statisticians who want to see a sentiment analysis on certain words or phrases.
 
-![image](https://user-images.githubusercontent.com/16450416/33190995-d412e232-d068-11e7-8e84-0dae0e10df6d.png)
+![image](https://user-images.githubusercontent.com/16450416/33514419-89ea5518-d708-11e7-9b87-554cba69fdad.png)
 
 ## How to use
 1. Go to the project homepage at: https://github.com/ryanchangyeolshin/Sentimentalytics
