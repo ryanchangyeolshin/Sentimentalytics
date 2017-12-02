@@ -1,4 +1,5 @@
-/* global renderAnalysis */
+/* global renderSearchTerm */
+/* global renderDashboard */
 /* global renderNewPie */
 /* global renderTable */
 /* global TableExport */
@@ -19,7 +20,7 @@ function getSentiment(term) {
       return res.json()
     })
     .catch(function (err) {
-      console.error(err)
+      throw err
     })
 }
 
@@ -29,7 +30,7 @@ function getAllSentiments() {
       return res.json()
     })
     .catch(function (err) {
-      console.error(err)
+      throw err
     })
 }
 
@@ -40,9 +41,8 @@ function deleteSentiments() {
 }
 
 function showSentiment(numberId, $sentiments, termData) {
-  const $sentiment = renderAnalysis(termData, numberId)
+  const $sentiment = renderSearchTerm(termData, numberId)
   $sentiments.appendChild($sentiment)
-  renderNewPie(termData, numberId)
   const $content = document.querySelector('#content')
   $content.classList.remove('hidden')
 }
@@ -50,7 +50,7 @@ function showSentiment(numberId, $sentiments, termData) {
 function clearList($content, $sentiments) {
   const $children = document.querySelectorAll('.sentiment')
   $children.forEach(function ($children) {
-    $children.setAttribute('class', 'sentiment rounded mr-lg-5 mb-lg-3 px-lg-4 py-lg-4 animated fadeOut')
+    $children.setAttribute('class', 'sentiment list-group-item list-group-item-action my-lg-3 white-text animated fadeOut')
     setTimeout(function () {
       $sentiments.removeChild($children)
       $content.classList.add('hidden')
@@ -58,35 +58,41 @@ function clearList($content, $sentiments) {
   })
 }
 
-function removeTable($table) {
-  if ($table) {
-    document.querySelector('.wrapper').removeChild($table)
+function removeContainer($container) {
+  if ($container) {
+    document.querySelector('.wrapper').removeChild($container)
   }
 }
 
 function toggleIcon($icon) {
   switch ($icon.getAttribute('id')) {
     case 'down':
-      $icon.setAttribute('class', 'd-flex fa fa-chevron-up fa-3x justify-content-center my-lg-5 animated infinite pulse')
+      $icon.setAttribute('class', 'd-flex fa fa-chevron-up fa-3x justify-content-center my-lg-5 white-text animated infinite pulse')
       $icon.setAttribute('id', 'up')
       break
     default:
-      $icon.setAttribute('class', 'd-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse')
+      $icon.setAttribute('class', 'd-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 white-text animated infinite pulse')
       $icon.setAttribute('id', 'down')
       break
   }
 }
 
-function swapView($viewOne, $viewTwo, $icon) {
-  if ($viewOne.classList.contains('hidden')) {
-    $viewOne.setAttribute('class', 'container animated flipInX')
-    $viewTwo.setAttribute('class', 'hidden')
+function swapView($container) {
+  const $main = document.querySelector('#main')
+  switch ($container.getAttribute('id')) {
+    case 'main':
+      $container.setAttribute('class', 'hidden')
+      const $table = document.querySelector('#table')
+      $table.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
+      break
+    case 'table':
+      $container.setAttribute('class', 'hidden')
+      $main.setAttribute('class', 'container animated flipInX')
+      break
+    default:
+      $wrapper.removeChild($container)
+      $main.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
   }
-  else {
-    $viewTwo.setAttribute('class', 'container px-lg-5 py-lg-5 animated flipInX')
-    $viewOne.setAttribute('class', 'hidden')
-  }
-  toggleIcon($icon)
 }
 
 function randomIdGenerator() {
@@ -127,14 +133,17 @@ $wrapper.addEventListener('click', function (event) {
       }
       break
     case 'down':
-    case 'up':
-      removeTable(document.querySelector('#table'))
       getAllSentiments()
         .then(function (data) {
           const $table = renderTable(data)
           document.querySelector('.wrapper').appendChild($table)
-          swapView(document.querySelector('#main'), document.querySelector('#table'), document.querySelector('i'))
+          swapView(document.querySelector('.container'))
+          toggleIcon(document.querySelector('i'))
         })
+      break
+    case 'up':
+      swapView(document.querySelector('.container'))
+      toggleIcon(document.querySelector('i'))
       break
     case 'export':
       const data = new TableExport(document.querySelector('#table'), {
@@ -152,5 +161,25 @@ $wrapper.addEventListener('click', function (event) {
       const exportData = data.getExportData()['table']['csv']
       data.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension)
       break
+  }
+})
+
+const $sentiments = document.querySelector('.sentiments')
+$sentiments.addEventListener('click', async function (event) {
+  const id = event.target.getAttribute('data-id')
+  removeContainer(document.querySelector(`#${id}`))
+  if (id) {
+    let data = {
+      id,
+      term: event.target.textContent,
+      sentiment: event.target.getAttribute('sentiment'),
+      confidence: event.target.getAttribute('confidence')
+    }
+    const $dashboard = renderDashboard(data, id)
+    $dashboard.setAttribute('class', 'container dashboard px-lg-5 py-lg-5 animated flipInX')
+    document.querySelector('#main').setAttribute('class', 'hidden')
+    $wrapper.appendChild($dashboard)
+    renderNewPie(data, id)
+    toggleIcon(document.querySelector('i'))
   }
 })
