@@ -16,24 +16,23 @@
     <div class="wrapper my-lg-5">
       <div class="container active" id="main">
         <div class="jumbotron">
-          <h1 class="name text-center font-weight-bold animated flash">Sentimentalytics</h1>
+          <h1 class="name text-center font-weight-bold white-text animated flash">Sentimentalytics</h1>
         </div>
         <form class="form py-lg-4 mx-lg-5">
           <div class="form-group">
-            <label for="term">Search Term</label>
-            <input type="text" class="form-control" id="search-term" name="term" placeholder="Enter search term..." />
+            <label class="white-text" for="term">Search Term</label>
+            <input type="text" class="form-control white-text" id="search-term" name="term" placeholder="Enter search term..." />
           </div>
-          <div class="buttons py-lg-4">
-            <button type="submit" class="btn btn-outline-success waves-effect btn-lg mr-lg-3" id="submit" name="button">Submit</button>
-            <button type="submit" class="btn btn-outline-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
+          <div class="buttons py-lg-3">
+            <button type="submit" class="btn btn-success waves-effect btn-lg mr-lg-3" id="submit" name="button">Submit</button>
+            <button type="submit" class="btn btn-danger waves-effect btn-lg" id="clear" name="button">Clear</button>
           </div>
         </form>
-        <div class="py-lg-4 hidden" id="content">
-          <h3 class="text-center font-weight-bold">Analyses</h3>
-          <ul class="sentiments mt-lg-4"></ul>
+        <div class="py-lg-3 hidden" id="content">
+          <div class="sentiments mt-lg-3 mx-lg-5 list-group"></div>
         </div>
       </div>
-      <i class="icon d-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 animated infinite pulse" id="down" aria-hidden="true"></i>
+      <i class="icon d-flex fa fa-chevron-down fa-3x justify-content-center my-lg-5 white-text animated infinite pulse" id="down" aria-hidden="true"></i>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -45,8 +44,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/4.0.11/js/tableexport.min.js"></script>
     <script src="main.js"></script>
-    <script src="./js/analysis.js"></script>
+    <script src="./js/search-term.js"></script>
     <script src="./js/pie-chart.js"></script>
+    <script src="./js/dashboard.js"></script>
     <script src="./js/table.js"></script>
   </body>
 </html>

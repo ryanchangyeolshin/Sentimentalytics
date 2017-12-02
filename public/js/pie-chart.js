@@ -5,8 +5,8 @@
 
 function renderNewPie(data, id) {
   let sentimentPieData = [
-    {'value': parseFloat(data['confidence'], 10), 'name': 'Confident'},
-    {'value': 100 - parseFloat(data['confidence'], 10), 'name': 'Not Confident'}
+    {'value': parseFloat(data['confidence']) * 100, 'name': 'Confident'},
+    {'value': 100 - parseFloat(data['confidence']) * 100, 'name': 'Not Confident'}
   ]
   let confidencePie = new d3plus.viz()
     .container(`#viz-${id}`)

@@ -7,7 +7,7 @@ function renderTable(data) {
   $table.setAttribute('id', 'table')
 
   const $tableHeading = document.createElement('h3')
-  $tableHeading.setAttribute('class', 'text-center font-weight-bold mb-lg-4')
+  $tableHeading.setAttribute('class', 'text-center font-weight-bold mb-lg-4 white-text')
   $tableHeading.textContent = 'Table'
 
   const $export = renderExportButton(document.createElement('button'))
@@ -96,7 +96,7 @@ function renderTableRow(data, id) {
 }
 
 function renderExportButton($export) {
-  $export.setAttribute('class', 'btn btn-outline-primary waves-effect mt-lg-4')
+  $export.setAttribute('class', 'btn btn-primary waves-effect mt-lg-4')
   $export.setAttribute('id', 'export')
   $export.setAttribute('data-type', 'csv')
   $export.textContent = 'Export as CSV'
