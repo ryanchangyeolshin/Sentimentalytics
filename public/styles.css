@@ -4,60 +4,40 @@
 }
 
 body {
-  /* Typography */
   font-family: 'Roboto', sans-serif;
-
-  /* Visuals */
   background: url('https://i.imgur.com/5UucST1.gif') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: white;
 }
 
 .jumbotron,
 .container {
-  /* Visuals */
   background-color: #0b1b26;
   opacity: 0.9;
 }
 
 h1,
 h3 {
-  /* Typography */
   letter-spacing: 10px;
 }
 
-#search-term {
-  /* Visuals */
-  color: white;
-}
-
 .sentiment {
-  /* Visuals */
-  background-color: #f1f2f1;
-  color: black;
+  background-color: #203748;
   opacity: 0.9;
 }
 
-h4 {
-  /* Typography */
-  text-decoration: underline;
+.sentiment:hover {
+  background-color: black;
 }
 
-img {
-  /* Positioning */
-  width: 80px;
-  height: 80px;
-}
-
-.data {
-  /* Visuals */
-  color: black;
+.pie {
+  position: relative;
+  left: 200px;
+  background-color: #101e2b;
 }
 
 .hidden {
-  /* Box Model */
   display: none;
 }
